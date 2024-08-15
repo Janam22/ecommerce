@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\API\BaseController;
+use App\Http\Controllers\Admin\BaseController;
 use Illuminate\Http\Request;
-use App\Models\Product;
+use App\Models\Admin\Product;
 use Illuminate\Support\Facades\Validator;
-use App\Http\Resources\ProductResource;
+use App\Http\Resources\Admin\ProductResource;
 use Illuminate\Http\JsonResponse;
 
 class ProductController extends BaseController

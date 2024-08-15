@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\API\BaseController;
+use App\Http\Controllers\Admin\BaseController;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use App\Models\Api;
-use App\Http\Resources\APIResource;
+use App\Models\Admin\Api;
+use App\Http\Resources\Admin\APIResource;
 use Illuminate\Support\Facades\Validator;
 
 class APIController extends BaseController

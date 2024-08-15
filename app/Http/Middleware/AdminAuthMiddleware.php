@@ -39,7 +39,7 @@ class AdminAuthMiddleware
 
     protected function validateCredentials($email, $password)
     {
-        $user = \App\Models\User::where('email', $email)->first();
+        $user = \App\Models\Admin\Admin::where('email', $email)->first();
         return $user && Hash::check($password, $user->password);
     }
 }

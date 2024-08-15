@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\API\BaseController;
-use App\Http\Resources\AddressResource;
+use App\Http\Controllers\Admin\BaseController;
+use App\Http\Resources\Admin\AddressResource;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\JsonResponse;
-use App\Models\Address;
+use App\Models\Admin\Address;
 
 class AddressController extends BaseController
 {

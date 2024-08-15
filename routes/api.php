@@ -1,18 +1,19 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\API\RegisterController;
-use App\Http\Controllers\API\ProductController;
-use App\Http\Controllers\API\ProfileController;
-use App\Http\Controllers\API\AddressController;
-use App\Http\Controllers\API\CategoryController;
-use App\Http\Controllers\API\APIController;
+use App\Http\Controllers\CustomerRegisterController;
+use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Admin\AddressController;
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\APIController;
+use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Middleware\AdminAuthMiddleware;
 
-Route::post('login', [RegisterController::class, 'login']);
-Route::post('register', [RegisterController::class, 'register']);
+Route::post('login', [CustomerRegisterController::class, 'login']);
+Route::post('register', [CustomerRegisterController::class, 'register']);
 
-// Apply Basic Auth middleware to specific routes
+// Apply Admin Auth middleware to specific routes
 Route::middleware(AdminAuthMiddleware::class)->group(function () {
 
     Route::apiResource('products', ProductController::class);
@@ -20,5 +21,7 @@ Route::middleware(AdminAuthMiddleware::class)->group(function () {
     Route::apiResource('addresses', AddressController::class);
     Route::apiResource('profile', ProfileController::class);
     Route::apiResource('sourceapi', APIController::class);
+    Route::apiResource('customers', CustomerController::class);
 
 });
+

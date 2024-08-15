@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\API\BaseController as BaseController;
-use App\Models\User;
+use App\Http\Controllers\Admin\BaseController as BaseController;
+use App\Models\Admin\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\JsonResponse;
 
-class RegisterController extends BaseController
+class CustomerRegisterController extends BaseController
 {
         // Register API
         public function register(Request $request): JsonResponse {

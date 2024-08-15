@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\API\BaseController;
+use App\Http\Controllers\Admin\BaseController;
 use Illuminate\Http\JsonResponse;
-use App\Models\Category;
+use App\Models\Admin\Category;
 
 class CategoryController extends BaseController
 {
