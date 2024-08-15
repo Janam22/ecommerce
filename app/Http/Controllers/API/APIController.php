@@ -67,8 +67,7 @@ class APIController extends BaseController
        
             $validator = Validator::make($input, [
                 'api_name' => 'required',
-                'api_value' => 'required',
-                'remarks' => 'required'
+                'api_value' => 'required'
             ]);
        
             if($validator->fails()){
