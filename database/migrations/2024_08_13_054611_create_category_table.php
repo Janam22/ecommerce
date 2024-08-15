@@ -16,8 +16,7 @@ return new class extends Migration
             $table->string('category_name');
             $table->string('category_type');
             $table->string('category_id')->unique();
-            $table->string('path');
-            $table->binary('image');
+            $table->binary('image_path')->nullable();
             $table->string('remarks')->nullable();
             $table->timestamps();
         });
