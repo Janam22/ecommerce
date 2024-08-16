@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminLoginController;
 use App\Http\Controllers\CustomerRegisterController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProfileController;
@@ -9,13 +10,18 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\APIController;
 use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\VendorUserController;
-use App\Http\Middleware\AdminAuthMiddleware;
 
-Route::post('login', [CustomerRegisterController::class, 'login']);
-Route::post('register', [CustomerRegisterController::class, 'register']);
+Route::controller(CustomerRegisterController::class)->group(function(){
+    Route::post('login', 'login');
+    Route::post('register', 'register');
+});
+
+Route::controller(AdminLoginController::class)->group(function(){
+    Route::post('adminlogin', 'login');
+});
 
 // Apply Admin Auth middleware to specific routes
-Route::middleware(AdminAuthMiddleware::class)->group(function () {
+Route::middleware('auth:sanctum')->group(function () {
 
     Route::apiResource('products', ProductController::class);
     Route::apiResource('categories', CategoryController::class);

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Admin\BaseController as BaseController;
@@ -18,6 +18,7 @@ class CustomerRegisterController extends BaseController
                 'email' => 'required|string|email|unique:users',
                 'password' => 'required',
                 'c_password' => 'required|same:password',
+                'profile_photo_path' => 'nullable'
             ]);
     
             if ($validator -> fails()){
@@ -26,12 +27,26 @@ class CustomerRegisterController extends BaseController
     
             try {
 
-                $input = $request->all();
-                $input['password'] = bcrypt($input['password']);
-                $user = User::create($input);
+                $user = User::create([
+                    'name' => $input['name'],
+                    'email' => $input['email'],
+                    'password' = bcrypt($input['password']),
+                ]);
+                
+            // Handle file upload
+            if ($request->hasFile('profile_photo_path')) {
+                $profilephoto = $request->file('profile_photo_path');
+                $profilephotoName = $category->id . time() . $input['name'] . $profilephoto->getClientOriginalExtension();
+                $profilephoto->move(public_path('storage/users_profile/'), $profilephotoName);
+
+                // Update category with the new image path
+                $user->profile_photo_path = $profilephotoName;
+                $user->createToken('ecommerce')->plainTextToken;
+                $user->save();
+            }
                 $success['name'] = $user->name;
 
-                return $this->sendResponse($success, 'User register successfully.');
+                return $this->sendResponse($success, 'User registered successfully.');
             } catch (\Exception $e) {
                 return $this->sendError('An error occurred while registering to the system.', $e->getMessage());
             }
@@ -41,7 +56,7 @@ class CustomerRegisterController extends BaseController
         try {
             $credentials = $request->only('email', 'password');
             if(Auth::attempt($credentials)){ 
-            //if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){ 
+
                 $user = Auth::user(); 
                 $success['name'] =  $user->name;
                 $success['email'] =  $user->email;
