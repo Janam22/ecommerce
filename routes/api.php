@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\AddressController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\APIController;
 use App\Http\Controllers\Admin\CustomerController;
+use App\Http\Controllers\Admin\VendorUserController;
 use App\Http\Middleware\AdminAuthMiddleware;
 
 Route::post('login', [CustomerRegisterController::class, 'login']);
@@ -22,6 +23,7 @@ Route::middleware(AdminAuthMiddleware::class)->group(function () {
     Route::apiResource('profile', ProfileController::class);
     Route::apiResource('sourceapi', APIController::class);
     Route::apiResource('customers', CustomerController::class);
+    Route::apiResource('vendorusers', VendorUserController::class);
 
 });
 
