@@ -30,7 +30,7 @@ class CustomerRegisterController extends BaseController
                 $user = User::create([
                     'name' => $input['name'],
                     'email' => $input['email'],
-                    'password' = bcrypt($input['password']),
+                    'password' => bcrypt($input['password']),
                 ]);
                 
             // Handle file upload
@@ -55,9 +55,9 @@ class CustomerRegisterController extends BaseController
     public function login(Request $request): JsonResponse {
         try {
             $credentials = $request->only('email', 'password');
-            if(Auth::attempt($credentials)){ 
+            if(Auth::guard('user')->attempt($credentials)){ 
 
-                $user = Auth::user(); 
+                $user = Auth::guard('user')->user(); 
                 $success['name'] =  $user->name;
                 $success['email'] =  $user->email;
                 $success['id'] =  $user->id;

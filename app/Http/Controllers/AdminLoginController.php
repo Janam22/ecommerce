@@ -31,7 +31,6 @@ class AdminLoginController extends BaseController
                 $success['name'] =  $admin->name;
                 $success['email'] =  $admin->email;
                 $success['id'] =  $admin->id;
-                $success['token'] =  $admin->remember_token;
        
                 return $this->sendResponse($success, 'Admin login successfully.');
             } 
