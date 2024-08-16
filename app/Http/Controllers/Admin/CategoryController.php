@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Admin\BaseController;
+use App\Http\Resources\Admin\CategoryResource;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\JsonResponse;
 use App\Models\Admin\Category;
-use App\Http\Resources\Admin\CategoryResource;
 
 class CategoryController extends BaseController
 {
@@ -47,14 +47,31 @@ class CategoryController extends BaseController
                 'category_name' => 'required',
                 'category_type' => 'required',
                 'category_id' => 'required|unique:category',
-                'image_path' => 'required'
+                'image_path' => 'required|image|mimes:jpeg,png,jpg'
             ]);
        
             if($validator->fails()){
                 return $this->sendError('Validation Error.', $validator->errors());       
             }
        
-            $category = Category::create($input);
+            // Create the category
+            $category = Category::create([
+                'category_name' => $input['category_name'],
+                'category_type' => $input['category_type'],
+                'category_id' => $input['category_id'],
+                'image_path' => $input['image_path'] // Default value before uploading
+            ]);
+
+            // Handle file upload
+            if ($request->hasFile('image_path')) {
+                $categoryphoto = $request->file('image_path');
+                $imagephotoName = $category->id . time() . '_category.' . $categoryphoto->getClientOriginalExtension();
+                $categoryphoto->move(public_path('storage/category_image/'), $imagephotoName);
+
+                // Update category with the new image path
+                $category->image_path = $imagephotoName;
+                $category->save();
+            }
        
             return $this->sendResponse(new CategoryResource($category), 'Category created successfully.');
         } catch (\Exception $e) {
@@ -71,7 +88,7 @@ class CategoryController extends BaseController
                 'category_name' => 'required',
                 'category_type' => 'required',
                 'category_id' => 'required',
-                'image_path' => 'required|image|mimes:jpeg,png,jpg'
+                'image_path' => 'nullable|image|mimes:jpeg,png,jpg'
             ]);
        
             if($validator->fails()){
@@ -84,6 +101,7 @@ class CategoryController extends BaseController
                 return $this->sendError('Category not found.', [], 404);
             }
             
+            // Update category fields
             $category->category_name = $input['category_name'];
             $category->category_type = $input['category_type'];
             $category->category_id = $input['category_id'];
