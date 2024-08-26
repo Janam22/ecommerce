@@ -10,6 +10,8 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\APIController;
 use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\VendorUserController;
+use App\Http\Controllers\Admin\ColorController;
+use App\Http\Controllers\Admin\OrderController;
 
 Route::controller(CustomerRegisterController::class)->group(function(){
     Route::post('login', 'login');
@@ -30,6 +32,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('sourceapi', APIController::class);
     Route::apiResource('customers', CustomerController::class);
     Route::apiResource('vendorusers', VendorUserController::class);
+    Route::apiResource('colors', ColorController::class);
+    Route::apiResource('orders', OrderController::class);
 
 });
 

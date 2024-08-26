@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\BaseController;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Http\Resources\Admin\CustomerResource;
+use Illuminate\Support\Facades\Validator;
 use App\Models\Admin\User;
 
 class CustomerController extends BaseController
@@ -99,7 +100,7 @@ class CustomerController extends BaseController
                 return $this->sendError('Customer not found.', [], 404);
             }
         
-            // Delete the address
+            // Delete the customer
             $customer->delete();
        
             return $this->sendResponse([], 'Customer deleted successfully.');
