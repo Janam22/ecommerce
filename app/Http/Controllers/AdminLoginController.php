@@ -22,7 +22,7 @@ class AdminLoginController extends BaseController
                 
             if ($validator->fails()) {
                 return $this->sendError('Validation Error.', $validator->errors());
-            }
+            } 
                         
             $credentials = $request->only('email', 'password');
             if(Auth::guard('admin')->attempt($credentials)){ 

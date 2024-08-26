@@ -75,7 +75,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => env('AUTH_MODEL', App\Models\User::class),
+            'model' => env('AUTH_MODEL', App\Models\Admin\User::class),
         ],
 
         // Custom provider for admins
@@ -84,11 +84,6 @@ return [
             'model' => App\Models\Admin\Admin::class,
         ],
         
-        // Custom provider for admins
-        'users' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\Admin\User::class,
-        ],
 
         // 'users' => [
         //     'driver' => 'database',
