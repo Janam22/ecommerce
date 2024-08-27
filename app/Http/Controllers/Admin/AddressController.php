@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Admin\BaseController;
+use App\Http\Controllers\BaseController;
 use App\Http\Resources\Admin\AddressResource;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\JsonResponse;

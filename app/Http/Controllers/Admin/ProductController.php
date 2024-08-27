@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Admin\BaseController;
+use App\Http\Controllers\BaseController;
 use Illuminate\Http\Request;
 use App\Models\Admin\Product;
 use Illuminate\Support\Facades\Validator;

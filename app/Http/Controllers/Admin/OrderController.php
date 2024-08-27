@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Admin\BaseController;
+use App\Http\Controllers\BaseController;
 use Illuminate\Http\Request;
-use App\Models\Admin\Order;
+use App\Models\Order;
 use Illuminate\Support\Facades\Validator;
-use App\Http\Resources\Admin\OrderResource;
+use App\Http\Resources\OrderResource;
 use Illuminate\Http\JsonResponse;
 
 class OrderController extends BaseController

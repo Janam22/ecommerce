@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\VendorUserController;
 use App\Http\Controllers\Admin\ColorController;
 use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\ProductVarientController;
 
 Route::controller(CustomerRegisterController::class)->group(function(){
     Route::post('login', 'login');
@@ -34,6 +35,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('vendorusers', VendorUserController::class);
     Route::apiResource('colors', ColorController::class);
     Route::apiResource('orders', OrderController::class);
+    Route::apiResource('productvarient', ProductVarientController::class);
 
 });
 
