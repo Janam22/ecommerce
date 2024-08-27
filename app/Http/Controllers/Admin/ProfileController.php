@@ -11,6 +11,12 @@ use Illuminate\Support\Facades\Validator;
 
 class ProfileController extends BaseController
 {
+    
+    public function index(): JsonResponse
+    {
+        return response()->json(auth()->user());
+    }
+    
     public function update(Request $request, $id): JsonResponse {
         
         $input = $request->all();
