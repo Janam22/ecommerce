@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\BaseController as BaseController;
 use App\Models\Admin\Admin;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\JsonResponse;
 
-class AdminLoginController extends Controller
+class AdminLoginController extends BaseController
 {
 
     public function login(Request $request): JsonResponse
@@ -19,19 +20,14 @@ class AdminLoginController extends Controller
                 'password' => 'required',
             ]);
 
-            if ($validator->fails()) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'Validation Error.',
-                    'errors' => $validator->errors()
-                ], 400);
+            if ($validator -> fails()){
+                return $this->sendError('Validation Error.', $validator->errors());
             }
 
             $credentials = $request->only('email', 'password');
             
             if (Auth::guard('admin')->attempt($credentials)) {
                 $admin = Auth::guard('admin')->user();
-                //$token = Auth::attempt($credentials);
                 $token = $admin->createToken('ecommercetoken')->plainTextToken;
 
                 $success = [
@@ -42,24 +38,13 @@ class AdminLoginController extends Controller
                     ]
                 ];
 
-                return response()->json([
-                    'success' => true,
-                    'data' => $success,
-                    'message' => 'Admin login successfully.'
-                ], 200);
+                return $this->sendResponse($success, 'Admin login successfully.');
+
             } else {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'Unauthorized.',
-                    'error' => 'Unauthorized'
-                ], 401);
+                return $this->sendError('Unauthorised.', ['error'=>'Unauthorised']);
             }
         } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'An error occurred while logging in.',
-                'error' => $e->getMessage()
-            ], 500);
+            return $this->sendError('An error occurred while logged in to the system.', $e->getMessage());
         }
     }
 }
