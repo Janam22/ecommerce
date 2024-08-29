@@ -13,7 +13,8 @@ class CustomerRegisterController extends BaseController
 {
         // Register API
         public function register(Request $request): JsonResponse {
-            $validator = Validator::make($request->all(), [
+            $input = $request->all();
+            $validator = Validator::make($input, [
                 'name' => 'required|string',
                 'email' => 'required|string|email|unique:users',
                 'password' => 'required',
@@ -36,7 +37,7 @@ class CustomerRegisterController extends BaseController
             // Handle file upload
             if ($request->hasFile('profile_photo_path')) {
                 $profilephoto = $request->file('profile_photo_path');
-                $profilephotoName = $category->id . time() . $input['name'] . $profilephoto->getClientOriginalExtension();
+                $profilephotoName = $user->id . time() . $input['name'] . $profilephoto->getClientOriginalExtension();
                 $profilephoto->move(public_path('storage/users_profile/'), $profilephotoName);
 
                 // Update category with the new image path
