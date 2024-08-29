@@ -55,15 +55,34 @@ class CustomerRegisterController extends BaseController
 
     public function login(Request $request): JsonResponse {
         try {
+
+            $validator = Validator::make($request->all(), [
+                'email' => 'required|email',
+                'password' => 'required',
+            ]);
+            
+            if ($validator -> fails()){
+                return $this->sendError('Validation Error.', $validator->errors());
+            }
+
             $credentials = $request->only('email', 'password');
             if(Auth::guard('user')->attempt($credentials)){ 
 
                 $user = Auth::guard('user')->user(); 
-                $success['name'] =  $user->name;
-                $success['email'] =  $user->email;
-                $success['id'] =  $user->id;
+                $data['id'] =  $user->id;
+                $data['name'] =  $user->name;
+                $data['email'] =  $user->email;
+                $data['profile_photo_path'] =  $user->profile_photo_path;
+
+                $success = [
+                    'customer' => $data,
+                    'authorisation' => [
+                        'token' => $token,
+                        'type' => 'bearer'
+                    ]
+                ];
        
-                return $this->sendResponse($success, 'User login successfully.');
+                return $this->sendResponse($success, 'Customer login successfully.');
             } 
             else{ 
                 return $this->sendError('Unauthorised.', ['error'=>'Unauthorised']);

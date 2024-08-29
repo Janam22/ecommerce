@@ -28,10 +28,16 @@ class AdminLoginController extends BaseController
             
             if (Auth::guard('admin')->attempt($credentials)) {
                 $admin = Auth::guard('admin')->user();
+                
+                $data['id'] =  $admin->id;
+                $data['name'] =  $admin->name;
+                $data['email'] =  $admin->email;
+                $data['profile_photo_path'] =  $admin->profile_photo_path;
+
                 $token = $admin->createToken('ecommercetoken')->plainTextToken;
 
                 $success = [
-                    'user' => $admin,
+                    'admin' => $data,
                     'authorisation' => [
                         'token' => $token,
                         'type' => 'bearer'
