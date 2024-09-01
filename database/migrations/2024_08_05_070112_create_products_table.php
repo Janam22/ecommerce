@@ -27,7 +27,15 @@ return new class extends Migration
             $table->binary('secondary_image');
             $table->string('remarks')->nullable();
             $table->timestamps();
+            
+            // Defining the foreign key constraint
+            $table->foreign('category_id')
+                  ->references('id')
+                  ->on('category')
+                  ->onDelete('restrict');
+
         });
+        
     }
 
     /**

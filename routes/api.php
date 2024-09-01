@@ -33,7 +33,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('sourceapi', APIController::class);
     Route::apiResource('customers', CustomerController::class);
     Route::apiResource('vendorusers', VendorUserController::class);
+    
     Route::apiResource('colors', ColorController::class);
+    Route::post('/colors/bulk-delete', [ColorController::class, 'bulkDelete']);
+
     Route::apiResource('orders', OrderController::class);
     Route::apiResource('productvarient', ProductVarientController::class);
 

@@ -77,4 +77,25 @@ class ColorController extends BaseController
         }
     }
 
+    
+    public function bulkDelete(Request $request)
+    {
+        $ids = $request->input('ids');
+
+        // Validate the input
+        $request->validate([
+            'ids' => 'required|array',
+            'ids.*' => 'required|integer|exists:colors,id'
+        ]);
+
+        try {
+            // Perform bulk delete
+            Color::whereIn('id', $ids)->delete();
+            return $this->sendResponse([], 'Colors deleted successfully.');
+        } catch (\Exception $e) {
+            return $this->sendError('An error occurred while deleting colors.', $e->getMessage());
+        }
+    }
+    
+
 }
