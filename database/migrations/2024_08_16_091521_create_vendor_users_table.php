@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('vendor_users', function (Blueprint $table) {
-            $table->id();
+            $table->bigInteger('id')->primary()->autoIncrement();
             $table->tinyInteger('active_state')->nullable();
             $table->string('user_type');
             $table->string('vendor_company_name');

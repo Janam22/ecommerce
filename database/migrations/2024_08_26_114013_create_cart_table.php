@@ -14,9 +14,17 @@ return new class extends Migration
         Schema::create('cart', function (Blueprint $table) {
             $table->id();
             $table->string('tmp_id');
-            $table->bigInteger('customer_id')->nullable();
+            $table->bigInteger('customer_id')->nullable()->index();
             $table->string('remarks')->nullable();
             $table->timestamps();
+            
+            // Defining the foreign key constraint
+            $table->foreign('customer_id')
+                  ->references('id')
+                  ->on('users')
+                  ->onDelete('restrict');
+                  ->onUpdate('restrict');
+
         });
     }
 

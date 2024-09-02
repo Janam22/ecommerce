@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('api', function (Blueprint $table) {
-            $table->id();
+            $table->bigInteger('id')->primary()->autoIncrement();
             $table->string('api_name');
             $table->string('api_value');
             $table->string('remarks')->nullable();

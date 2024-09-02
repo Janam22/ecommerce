@@ -12,9 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('productvarient', function (Blueprint $table) {
-            $table->id();
-            $table->bigInteger('product_id');
-            $table->bigInteger('color_id');
+            $table->bigInteger('id')->primary()->autoIncrement();
+            $table->bigInteger('product_id')->index();
+            $table->bigInteger('color_id')->index();
             $table->bigInteger('stock_in')->deafult(0);
             $table->bigInteger('stock_out')->default(0);
             $table->bigInteger('defective')->default(0);
@@ -54,6 +54,20 @@ return new class extends Migration
         FOR EACH ROW
         SET NEW.total = NEW.available + NEW.defective + NEW.returned;
         ');
+        
+            // Defining the foreign key constraint
+            $table->foreign('product_id')
+                  ->references('id')
+                  ->on('products')
+                  ->onDelete('restrict');
+                  ->onUpdate('restrict');
+                  
+            // Defining the foreign key constraint
+            $table->foreign('color_id')
+                ->references('id')
+                ->on('colors')
+                ->onDelete('restrict');
+                ->onUpdate('restrict');
 
     }
 

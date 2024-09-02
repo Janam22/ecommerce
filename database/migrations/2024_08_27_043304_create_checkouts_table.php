@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('checkouts', function (Blueprint $table) {
-            $table->id();
+            $table->bigInteger('id')->primary()->autoIncrement();
             $table->bigInteger('cart_id')->index();
             $table->bigInteger('product_v_id')->index();
             $table->bigInteger('quantity');
@@ -25,6 +25,21 @@ return new class extends Migration
             $table->tinyInteger('display')->nullable()->default(1);
             $table->string('remarks')->nullable();
             $table->timestamps();
+            
+            // Defining the foreign key constraint
+            $table->foreign('cart_id')
+                  ->references('id')
+                  ->on('cart')
+                  ->onDelete('restrict');
+                  ->onUpdate('restrict');
+                  
+            // Defining the foreign key constraint
+            $table->foreign('product_v_id')
+                ->references('id')
+                ->on('productvarient')
+                ->onDelete('restrict');
+                ->onUpdate('restrict');
+
         });
     }
 

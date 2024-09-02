@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('products', function (Blueprint $table) {
-            $table->id();
+            $table->bigInteger('id')->primary()->autoIncrement();
             $table->string('product_code')->nullable();
             $table->string('product_name');
             $table->string('category_id');
@@ -30,9 +30,10 @@ return new class extends Migration
             
             // Defining the foreign key constraint
             $table->foreign('category_id')
-                  ->references('id')
+                  ->references('category_id')
                   ->on('category')
                   ->onDelete('restrict');
+                  ->onUpdate('restrict');
 
         });
         
