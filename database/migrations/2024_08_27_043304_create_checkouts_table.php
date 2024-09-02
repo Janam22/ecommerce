@@ -30,14 +30,14 @@ return new class extends Migration
             $table->foreign('cart_id')
                   ->references('id')
                   ->on('cart')
-                  ->onDelete('restrict');
+                  ->onDelete('restrict')
                   ->onUpdate('restrict');
                   
             // Defining the foreign key constraint
             $table->foreign('product_v_id')
                 ->references('id')
                 ->on('productvarient')
-                ->onDelete('restrict');
+                ->onDelete('restrict')
                 ->onUpdate('restrict');
 
         });

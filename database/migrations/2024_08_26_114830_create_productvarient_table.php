@@ -23,6 +23,21 @@ return new class extends Migration
             $table->bigInteger('total')->nullable();
             $table->string('remarks')->nullable();
             $table->timestamps();
+            
+            // Defining the foreign key constraint
+            $table->foreign('product_id')
+                  ->references('id')
+                  ->on('products')
+                  ->onDelete('restrict')
+                  ->onUpdate('restrict');
+                  
+            // Defining the foreign key constraint
+            $table->foreign('color_id')
+                  ->references('id')
+                  ->on('colors')
+                  ->onDelete('restrict')
+                  ->onUpdate('restrict');
+
         });
         
         // Add triggers
@@ -55,19 +70,6 @@ return new class extends Migration
         SET NEW.total = NEW.available + NEW.defective + NEW.returned;
         ');
         
-            // Defining the foreign key constraint
-            $table->foreign('product_id')
-                  ->references('id')
-                  ->on('products')
-                  ->onDelete('restrict');
-                  ->onUpdate('restrict');
-                  
-            // Defining the foreign key constraint
-            $table->foreign('color_id')
-                  ->references('id')
-                  ->on('colors')
-                  ->onDelete('restrict');
-                  ->onUpdate('restrict');
 
     }
 

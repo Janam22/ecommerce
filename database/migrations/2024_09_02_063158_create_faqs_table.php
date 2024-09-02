@@ -11,17 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('cart', function (Blueprint $table) {
-            $table->id();
-            $table->string('tmp_id');
-            $table->bigInteger('customer_id')->nullable()->index();
+        Schema::create('faqs', function (Blueprint $table) {
+            $table->bigInteger('id')->primary()->autoIncrement();
+            $table->bigInteger('product_id')->index();
+            $table->string('question')->nullable();
+            $table->string('answer')->nullable();
+            $table->dateTime('modify_date')->nullable();
             $table->string('remarks')->nullable();
             $table->timestamps();
             
             // Defining the foreign key constraint
-            $table->foreign('customer_id')
+            $table->foreign('product_id')
                   ->references('id')
-                  ->on('users')
+                  ->on('products')
                   ->onDelete('restrict')
                   ->onUpdate('restrict');
 
@@ -33,6 +35,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('cart');
+        Schema::dropIfExists('faqs');
     }
 };
