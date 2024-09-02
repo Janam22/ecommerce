@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('category', function (Blueprint $table) {
+        Schema::create('deliveryconfirmed', function (Blueprint $table) {
             $table->bigInteger('id')->primary()->autoIncrement();
-            $table->string('category_name')->nullable();
-            $table->string('category_type')->nullable();
-            $table->string('category_id')->unique();
-            $table->binary('image_path')->nullable();
+            $table->string('refID');
+            $table->string('cartId');
+            $table->string('confirm_by');
+            $table->dateTime('confirmdate');
             $table->string('remarks')->nullable();
             $table->timestamps();
         });
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('deliveryconfirmed');
     }
 };

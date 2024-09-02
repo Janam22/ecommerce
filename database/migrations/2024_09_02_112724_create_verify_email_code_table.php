@@ -11,12 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('category', function (Blueprint $table) {
+        Schema::create('verify_email_code', function (Blueprint $table) {
             $table->bigInteger('id')->primary()->autoIncrement();
-            $table->string('category_name')->nullable();
-            $table->string('category_type')->nullable();
-            $table->string('category_id')->unique();
-            $table->binary('image_path')->nullable();
+            $table->string('user_email');
+            $table->string('verify_code');
+            $table->tinyInteger('code_use')->nullable()->default(0);
+            $table->dateTime('create_date')->nullable();
+            $table->dateTime('use_date')->nullable();
             $table->string('remarks')->nullable();
             $table->timestamps();
         });
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('verify_email_code');
     }
 };
