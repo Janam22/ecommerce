@@ -39,6 +39,13 @@ return new class extends Migration
                 ->on('productvarient')
                 ->onDelete('restrict')
                 ->onUpdate('restrict');
+            
+            // Defining the foreign key constraint
+            $table->foreign('dpd_id')
+                ->references('id')
+                ->on('delivery_payment_details')
+                ->onDelete('restrict')
+                ->onUpdate('restrict');
 
         });
     }
