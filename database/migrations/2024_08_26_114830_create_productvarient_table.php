@@ -64,10 +64,10 @@ return new class extends Migration
                   
             // Defining the foreign key constraint
             $table->foreign('color_id')
-                ->references('id')
-                ->on('colors')
-                ->onDelete('restrict');
-                ->onUpdate('restrict');
+                  ->references('id')
+                  ->on('colors')
+                  ->onDelete('restrict');
+                  ->onUpdate('restrict');
 
     }
 
